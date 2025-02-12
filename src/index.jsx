@@ -15,13 +15,29 @@ import Header from "./components/Header/index.jsx";
 import Error from "./components/Error/index.jsx";
 
 // styles
-import "./styles/index.css";
+// import "./styles/index.css";
+import { createGlobalStyle } from "styled-components";
 
+const GlobalStyle = createGlobalStyle`
+body{
+margin: 0;
+padding: 0;
+}
+
+div {
+font-family: 'trebuchet ms', helvetica, sans-serif;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+}
+`;
 
 const root = document.getElementById("root");
 
 ReactDOM.createRoot(root).render(
         <BrowserRouter>
+        <GlobalStyle />
                 <Header />
                 <Routes>
                     <Route path="/" element={<Home />} />

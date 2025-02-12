@@ -55,6 +55,10 @@ const CardContainer = styled.div`
     color: #2F2E41;
     `
 
+const LoaderWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+`
 
 const Freelances = () => {
 
@@ -84,6 +88,10 @@ useEffect(() => {
 }
 , [error])
 
+if (error) {
+    return <span>Oups il y a eu un problème</span>
+}
+
     return (
         <PageWrapper>
             <div>
@@ -91,7 +99,9 @@ useEffect(() => {
                 <PageSubtitle>Chez Shiny, nous réunissons les meilleurs profils pour vous. </PageSubtitle>
             </div>
             {isDataLoading ? (
+                <LoaderWrapper>
                 <Loader />
+                </LoaderWrapper>
             ) : (
             <CardContainer>
             {freelancersListData.map((profile, index) => (

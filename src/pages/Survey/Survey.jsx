@@ -85,8 +85,8 @@ useEffect(() => {
         }
     }
     fetchSurvey()
-  }
-  , [])
+}
+, [error])
 
     // useEffect(() => {
     //     // fetchData()

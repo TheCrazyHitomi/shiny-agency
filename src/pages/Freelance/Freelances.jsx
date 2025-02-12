@@ -1,28 +1,31 @@
-import DefaultPicture from '../../assets/default-picture.jpg';
+import{ useState, useEffect } from 'react';
+
+// import DefaultPicture from '../../assets/default-picture.jpg';
 import Card from '../../components/Card';
 import styled from 'styled-components';
+import Loader from '../../utils/Atoms';
 
-const freelanceProfiles = [
-    {
-        name : "John Doe",
-        jobTitle: "DevOps",
-        picture : DefaultPicture,
-    },
-    {
-        name : "Johnny Biche",
-        jobTitle: "Developpeur Frontend",
-        picture : DefaultPicture,
-    },
-    {
-        name : "Jane Doe",
-        jobTitle: "Developpeuse Fullstack",
-        picture : DefaultPicture,
-    }, {
-        name : "Josette Biche",
-        jobTitle: "Developpeuse Backend",
-        picture : DefaultPicture,
-    }
-]
+// const freelanceProfiles = [
+//     {
+//         name : "John Doe",
+//         jobTitle: "DevOps",
+//         picture : DefaultPicture,
+//     },
+//     {
+//         name : "Johnny Biche",
+//         jobTitle: "Developpeur Frontend",
+//         picture : DefaultPicture,
+//     },
+//     {
+//         name : "Jane Doe",
+//         jobTitle: "Developpeuse Fullstack",
+//         picture : DefaultPicture,
+//     }, {
+//         name : "Josette Biche",
+//         jobTitle: "Developpeuse Backend",
+//         picture : DefaultPicture,
+//     }
+// ]
 
 const PageWrapper = styled.div`
     margin-top: 50px;
@@ -54,22 +57,53 @@ const CardContainer = styled.div`
 
 
 const Freelances = () => {
+
+    const [freelancersList, setFreelancersList] = useState({})
+    const [isDataLoading, setDataLoading] = useState(false)
+    const [error, setError] = useState(false)
+    const freelancersListData = Array.from(freelancersList)
+
+useEffect(() => {
+    async function fetchFreelancersList() {
+        setDataLoading(true)
+        try{
+            const response = await fetch('http://localhost:8000/freelances')
+            const { freelancersList } = await response.json()
+            setFreelancersList(freelancersList)
+        }
+        catch(error){
+            console.log('===== error =====', error)
+            setError(true)
+        }
+        
+        finally {
+            setDataLoading(false)
+        }
+    }
+    fetchFreelancersList()
+}
+, [error])
+
     return (
         <PageWrapper>
             <div>
                 <PageTitle>Trouvez votre Prestataire</PageTitle>
                 <PageSubtitle>Chez Shiny, nous réunissons les meilleurs profils pour vous. </PageSubtitle>
             </div>
+            {isDataLoading ? (
+                <Loader />
+            ) : (
             <CardContainer>
-            {freelanceProfiles.map((profile, index) => (
+            {freelancersListData.map((profile, index) => (
                 <Card
                     key={`${profile.name}-${index}`}
-                    label={profile.jobTitle}
+                    label={profile.job}
                     picture={profile.picture}
                     title={profile.name}
                 />
             ))}
             </CardContainer>
+            )}
         </PageWrapper>
     )
 }

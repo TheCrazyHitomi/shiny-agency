@@ -3,7 +3,7 @@ import{ useState, useEffect } from 'react';
 // import DefaultPicture from '../../assets/default-picture.jpg';
 import Card from '../../components/Card';
 import styled from 'styled-components';
-import Loader from '../../utils/Atoms';
+import { Loader } from '../../utils/style/Atoms.jsx';
 
 // const freelanceProfiles = [
 //     {

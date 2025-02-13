@@ -5,8 +5,7 @@ import  colors  from "../../utils/style/colors.js"
 import DarkLogo from "../../assets/dark-logo.png"
 
 const StyledHeader = styled.header`
-    margin: 30px;
-    width: 90%;
+    margin: 40px 80px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;

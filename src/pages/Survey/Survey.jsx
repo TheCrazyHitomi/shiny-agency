@@ -3,7 +3,7 @@ import{ useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import colors from '../../utils/style/colors.js';
-import Loader from '../../utils/Atoms.jsx';
+import { Loader } from '../../utils/style/Atoms.jsx';
 
 
 const SurveyContainer = styled.div`

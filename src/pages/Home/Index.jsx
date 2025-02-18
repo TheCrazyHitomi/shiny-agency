@@ -14,7 +14,7 @@ import { useTheme } from "../../utils/hooks/index.jsx"
   const StyledHero = styled.div`
   width: 90%;
   margin:  0 80px;
-  padding: 60px;
+  padding: 80px;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -36,7 +36,8 @@ const StylesHeroDiv = styled.div`
     font-size: 40px;
   `
   const Illustration = styled.img`
-  width: 50%;
+  width: 40%;
+
 `
 
 

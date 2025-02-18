@@ -4,15 +4,18 @@ import colors from "../../utils/style/colors";
 import { useTheme } from "../../utils/hooks";
 
 const CardLabel = styled.span`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: ${({ theme }) => (theme === 'light' ? colors.primary : colors.backgroundLight)};
-    font-size: 22px;
+    font-size: 20px;
     font-weight: bold;
 `;
 
 const CardTitle = styled.span`
   color: ${({ theme }) => (theme === 'light' ? '#000000' : '#ffffff')};
   font-size: 22px;
-  font-weight: normal;
+  font-weight: 300;
   align-self: center;
 `
 
@@ -28,6 +31,7 @@ const CardWrapper = styled.div`
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    justify-content: center;
     padding: 15px;
     background-color: ${({ theme }) => 
         theme === 'light' ? colors.backgroundLight : colors.backgroundDark};
@@ -38,7 +42,7 @@ const CardWrapper = styled.div`
     &:hover {
         cursor: pointer;
         box-shadow: 2px 2px 10px ${({ theme }) => 
-        theme === 'light' ? colors.backgroundLight : colors.backgroundDark};
+        theme === 'light' ? colors.shadowLight : colors.shadowDark};
     }
 `;
 

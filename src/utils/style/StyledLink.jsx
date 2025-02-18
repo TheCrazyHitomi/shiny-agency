@@ -5,7 +5,7 @@ import  colors  from "../../utils/style/colors.js"
 
 export const StyledLink = styled(Link)`
     padding: 10px 35px 10px 15px;
-    color: #8186a0;
+    color: ${({ theme }) => (theme === 'light' ? colors.dark : 'white')};
     text-decoration: none;
     font-size: 18px;
     ${({ $isFullLink }) => $isFullLink && `

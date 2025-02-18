@@ -1,15 +1,16 @@
 import { useContext } from "react"
 import { createGlobalStyle } from "styled-components"
 import { ThemeContext } from "../context/index.jsx"
+import colors from "./colors.js"
 
 const StyledGlobalStyle = createGlobalStyle`
     * {
-        font-family: 'trebuchet ms', helvetica, sans-serif;
+        font-family: 'Comfortaa', sans-serif;
     }
     body {
         margin: 0;
-        background-color: ${({ isDarkMode }) => (isDarkMode ? '#2F2E41' : 'white')};
-        color: ${({ isDarkMode }) => (isDarkMode ? 'white' : '#2F2E41')};
+        background-color: ${({ isDarkMode }) => (isDarkMode ? colors.dark : 'white')};
+        color: ${({ isDarkMode }) => (isDarkMode ? 'white' : colors.dark)};
     }
 `
 

@@ -1,47 +1,27 @@
-import{ useState, useEffect } from 'react';
+import { useFetch, useTheme } from '../../utils/hooks';
 
-// import DefaultPicture from '../../assets/default-picture.jpg';
 import Card from '../../components/Card';
 import styled from 'styled-components';
 import { Loader } from '../../utils/style/Atoms.jsx';
+import colors from '../../utils/style/colors.js';
 
-// const freelanceProfiles = [
-//     {
-//         name : "John Doe",
-//         jobTitle: "DevOps",
-//         picture : DefaultPicture,
-//     },
-//     {
-//         name : "Johnny Biche",
-//         jobTitle: "Developpeur Frontend",
-//         picture : DefaultPicture,
-//     },
-//     {
-//         name : "Jane Doe",
-//         jobTitle: "Developpeuse Fullstack",
-//         picture : DefaultPicture,
-//     }, {
-//         name : "Josette Biche",
-//         jobTitle: "Developpeuse Backend",
-//         picture : DefaultPicture,
-//     }
-// ]
 
 const PageWrapper = styled.div`
     margin-top: 50px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    justify-content: center;
     align-items: center;
     `
 
 const PageTitle = styled.h1`
-    color: #2F2E41;
+    color: ${({ theme }) => (theme === 'light' ? colors.dark : 'white')};
     font-size: 24px;
     font-weight: bold;
     `
 const PageSubtitle = styled.h3`
-    color: #8186a0;
+    color: ${({ theme }) => (theme === 'light' ? colors.dark : 'white')};
     font-size: 16px;
     font-weight: normal;
     `
@@ -52,7 +32,7 @@ const CardContainer = styled.div`
     gap: 24px;
     grid-template-row: 250px 250px;
     grid-template-columns: repeat(2, 1fr);
-    color: #2F2E41;
+    color: ${({ theme }) => (theme === 'light' ? colors.dark : 'white')};
     `
 
 const LoaderWrapper = styled.div`
@@ -62,31 +42,10 @@ const LoaderWrapper = styled.div`
 
 const Freelances = () => {
 
-    const [freelancersList, setFreelancersList] = useState({})
-    const [isDataLoading, setDataLoading] = useState(false)
-    const [error, setError] = useState(false)
-    const freelancersListData = Array.from(freelancersList)
+    const { theme } = useTheme();
 
-useEffect(() => {
-    async function fetchFreelancersList() {
-        setDataLoading(true)
-        try{
-            const response = await fetch('http://localhost:8000/freelances')
-            const { freelancersList } = await response.json()
-            setFreelancersList(freelancersList)
-        }
-        catch(error){
-            console.log('===== error =====', error)
-            setError(true)
-        }
-        
-        finally {
-            setDataLoading(false)
-        }
-    }
-    fetchFreelancersList()
-}
-, [error])
+    const { data, isLoading, error } = useFetch(`http://localhost:8000/freelances`);
+    const  freelancersList  = data?.freelancersList
 
 if (error) {
     return <span>Oups il y a eu un problème</span>
@@ -94,17 +53,17 @@ if (error) {
 
     return (
         <PageWrapper>
-            <div>
-                <PageTitle>Trouvez votre Prestataire</PageTitle>
-                <PageSubtitle>Chez Shiny, nous réunissons les meilleurs profils pour vous. </PageSubtitle>
-            </div>
-            {isDataLoading ? (
+
+                <PageTitle theme={theme}>Trouvez votre Prestataire</PageTitle>
+                <PageSubtitle theme={theme}>Chez Shiny, nous réunissons les meilleurs profils pour vous. </PageSubtitle>
+
+            {isLoading ? (
                 <LoaderWrapper>
-                <Loader />
+                <Loader theme={theme}/>
                 </LoaderWrapper>
             ) : (
             <CardContainer>
-            {freelancersListData.map((profile, index) => (
+            {freelancersList && freelancersList.map((profile, index) => (
                 <Card
                     key={`${profile.name}-${index}`}
                     label={profile.job}

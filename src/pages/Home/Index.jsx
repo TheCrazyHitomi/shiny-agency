@@ -1,7 +1,9 @@
-import { Link } from "react-router-dom"
+
 import styled from "styled-components"
 import  colors  from "../../utils/style/colors.js"
 import HomeIllustration from "../../assets/home-illustration.svg"
+import { StyledHeroLink } from "../../utils/style/StyledHeroLink"
+import { useTheme } from "../../utils/hooks/index.jsx"
 
 
 
@@ -10,13 +12,14 @@ import HomeIllustration from "../../assets/home-illustration.svg"
   justify-content: center;
 `
   const StyledHero = styled.div`
+  width: 90%;
   margin:  0 80px;
   padding: 60px;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  background-color: ${colors.backgroundLight};
-  width: 90%;
+  background-color: ${({ theme }) => 
+        theme === 'light' ? colors.backgroundLight : colors.backgroundDark};
   `
 
 const StylesHeroDiv = styled.div`
@@ -36,25 +39,14 @@ const StylesHeroDiv = styled.div`
   width: 50%;
 `
 
-  const StyledHeroLink = styled(Link)`
-  padding: 10px 35px 10px 15px;
-  color: #8186a0;
-  text-decoration: none;
-  font-size: 18px;
-  ${({ $isFullLink }) => $isFullLink && `
-  margin-top: 20px;
-  padding: 10px 50px 10px 50px;
-      color : white;
-      border-radius: 20px;
-      background-color: ${colors.primary};
-  `}
-  `
+
 const Home = () => {
 
+  const { theme } = useTheme();
 
   return (
-    <HomeWrapper>
-      <StyledHero>
+    <HomeWrapper >
+      <StyledHero theme={theme}>
         <StylesHeroDiv>
           <StyledHeroTitle>Repérez vos besoins,
           on s’occupe du reste, avec les meilleurs talents</StyledHeroTitle>

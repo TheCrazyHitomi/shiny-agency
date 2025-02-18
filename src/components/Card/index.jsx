@@ -1,12 +1,20 @@
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import colors from "../../utils/style/colors";
+import { useTheme } from "../../utils/hooks";
 
 const CardLabel = styled.span`
-    color: #5843e4;
-    font-size: 16px;
+    color: ${({ theme }) => (theme === 'light' ? colors.primary : colors.backgroundLight)};
+    font-size: 22px;
     font-weight: bold;
 `;
+
+const CardTitle = styled.span`
+  color: ${({ theme }) => (theme === 'light' ? '#000000' : '#ffffff')};
+  font-size: 22px;
+  font-weight: normal;
+  align-self: center;
+`
 
 const CardImage = styled.img`
     height: 150px;
@@ -21,23 +29,28 @@ const CardWrapper = styled.div`
     justify-content: space-around;
     align-items: center;
     padding: 15px;
-    background-color: ${colors.backgroundLight};
+    background-color: ${({ theme }) => 
+        theme === 'light' ? colors.backgroundLight : colors.backgroundDark};
     border-radius: 30px;
     width: 250px;
     height: 250px;
     transition: 200ms;
     &:hover {
         cursor: pointer;
-        box-shadow: 2px 2px 10px  #e2e3e9;
+        box-shadow: 2px 2px 10px ${({ theme }) => 
+        theme === 'light' ? colors.backgroundLight : colors.backgroundDark};
     }
 `;
 
 const Card = ({ label = "", title = "", picture = "https://picsum.photos/id/6/150" }) => { // Default props new declaration
+
+    const { theme } = useTheme()
+
     return (
-        <CardWrapper>
-            <CardLabel>{label}</CardLabel>
+        <CardWrapper theme={theme}>
+            <CardLabel theme={theme}>{label}</CardLabel>
             <CardImage src={picture} alt="freelance" />
-            <span>{title}</span>
+            <CardTitle theme={theme}>{title}</CardTitle>
         </CardWrapper>
     )
 }

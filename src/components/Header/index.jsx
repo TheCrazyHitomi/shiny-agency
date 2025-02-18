@@ -3,6 +3,8 @@ import styled from "styled-components"
 import { StyledLink } from "../../utils/style/StyledLink.jsx"
 import  colors  from "../../utils/style/colors.js"
 import DarkLogo from "../../assets/dark-logo.png"
+import LightLogo from "../../assets/light-logo.png"
+import { useTheme } from "../../utils/hooks/index.jsx"
 
 const StyledHeader = styled.header`
     margin: 40px 80px;
@@ -23,15 +25,18 @@ const StyledNav = styled.nav`
 
 
 const Header = () => {
+
+    const { theme } = useTheme();
+
     return (
         <StyledHeader>
             <Link to={"/"}>
-                <img src={DarkLogo} alt="Shiny-logo" />
+                <img src={theme === 'light' ? DarkLogo : LightLogo} alt="Shiny-logo" />
             </Link>
             
             <StyledNav>
-                <StyledLink to="/">Accueil</StyledLink>
-                <StyledLink to="/freelances">Profils</StyledLink>
+                <StyledLink theme={theme} to="/">Accueil</StyledLink>
+                <StyledLink theme={theme} to="/freelances">Profils</StyledLink>
                 <StyledLink to="/survey/1" $isFullLink>Faire le test</StyledLink>
             </StyledNav>
         </StyledHeader>

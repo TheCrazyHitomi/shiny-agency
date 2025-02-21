@@ -55,14 +55,20 @@ const LoaderWrapper = styled.div`
     justify-content: center;
 `
 
+export function formatJobList(title, listLength, index) {
+    if (index === listLength - 1) {
+        return title
+    }
+    return `${title},`
+}
 
 
-const FormatQueryParams = (answers) => {
+export function formatQueryParams (answers)  {
     const answerNumbers = Object.keys(answers);
 
     return answerNumbers.reduce((previousParams, answerNumber, index) => {
         const isFirstAnswer = index === 0;
-        const separator = isFirstAnswer ? '?' : '&';
+        const separator = isFirstAnswer ? '' : '&';
         return `${previousParams}${separator}a${answerNumber}=${answers[answerNumber]}`;
 }, '');
 }
@@ -70,7 +76,7 @@ const FormatQueryParams = (answers) => {
 const Results = () => {
     const { theme } = useTheme();
     const {answers} = useContext(SurveyContext)
-    const queryParams = FormatQueryParams(answers);
+    const queryParams = formatQueryParams(answers);
     console.log(answers)
 
     const { data, isLoading, error } = useFetch(`http://localhost:8000/results?${queryParams}`);
@@ -96,8 +102,7 @@ const Results = () => {
                         theme={theme}
                         key={`result-title-${index}-${result.title}`}
                     >
-                        {result.title}
-                        {index === resultsData.length - 1 ? '' : ', '}
+                        {formatJobList(result.title, resultsData.length, index)}
                     </JobTitle>
                 ))}
             

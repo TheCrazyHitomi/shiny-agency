@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import colors from "../../utils/style/colors";
 import { useTheme } from "../../utils/hooks";
+import { useState } from "react";
 
 const CardLabel = styled.span`
     display: flex;
@@ -9,14 +10,17 @@ const CardLabel = styled.span`
     align-items: center;
     color: ${({ theme }) => (theme === 'light' ? colors.primary : colors.backgroundLight)};
     font-size: 20px;
-    font-weight: bold;
+    font-weight: 700;
 `;
 
 const CardTitle = styled.span`
-  color: ${({ theme }) => (theme === 'light' ? '#000000' : '#ffffff')};
-  font-size: 22px;
-  font-weight: 300;
-  align-self: center;
+    color: ${({ theme }) => (theme === 'light' ? '#000000' : '#ffffff')};
+    font-size: 22px;
+    font-weight: 300;
+    align-self: center;
+    height: 25px;
+    display: flex;
+    align-items: center;
 `
 
 const CardImage = styled.img`
@@ -49,12 +53,14 @@ const CardWrapper = styled.div`
 const Card = ({ label = "", title = "", picture = "https://picsum.photos/id/6/150" }) => { // Default props new declaration
 
     const { theme } = useTheme()
+    const [isFavorite, setIsFavorite] = useState(false)
+    const star = isFavorite ? ' ⭐️' : ''
 
     return (
-        <CardWrapper theme={theme}>
+        <CardWrapper theme={theme} onClick={() => setIsFavorite(!isFavorite)}>
             <CardLabel theme={theme}>{label}</CardLabel>
             <CardImage src={picture} alt="freelance" />
-            <CardTitle theme={theme}>{title}</CardTitle>
+            <CardTitle theme={theme}>{title}{star}</CardTitle>
         </CardWrapper>
     )
 }
